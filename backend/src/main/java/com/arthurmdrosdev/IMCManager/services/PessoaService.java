@@ -47,7 +47,7 @@ public class PessoaService {
 		pessoa.setSexo(dto.getSexo());
 		pessoa.setAltura(dto.getAltura());
 		pessoa.setPeso(dto.getPeso());
-		
+		pessoa.setClassIMC(dto.getClassIMC());
 		pessoa = repository.saveAndFlush(pessoa);
 		
 		return new PessoaDTO(pessoa);
@@ -63,6 +63,7 @@ public class PessoaService {
 			pessoaFound.setSexo(dto.getSexo());
 			pessoaFound.setAltura(dto.getAltura());
 			pessoaFound.setPeso(dto.getPeso());		
+			pessoaFound.setClassIMC(dto.getClassIMC());
 		}		
 		pessoaFound = repository.saveAndFlush(pessoaFound);
 		
