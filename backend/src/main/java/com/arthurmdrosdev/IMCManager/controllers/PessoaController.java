@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +39,23 @@ public class PessoaController {
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable Long id) {
 		Pessoa pessoa = findOne(id);
-		System.out.println(pessoa.getNome());
 		if(pessoa != null) {
 			repository.delete(pessoa);
 		}		
+	}
+	
+	@PutMapping(value = "/{id}")
+	public Pessoa update(@PathVariable Long id, @RequestBody Pessoa pessoa ) {
+		Pessoa pessoaFound = findOne(id);
+		if(pessoaFound != null) {
+			pessoaFound.setNome(pessoa.getNome());
+			pessoaFound.setData_nasc(pessoa.getData_nasc());
+			pessoaFound.setCpf(pessoa.getCpf());
+			pessoaFound.setSexo(pessoa.getSexo());
+			pessoaFound.setAltura(pessoa.getAltura());
+			pessoaFound.setPeso(pessoa.getPeso());
+			repository.save(pessoaFound);
+		}		
+		return pessoaFound;
 	}
 }
