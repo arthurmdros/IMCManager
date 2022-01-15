@@ -6,6 +6,7 @@ import com.arthurmdrosdev.IMCManager.entities.Pessoa;
 
 public class PessoaDTO {
 	
+	private Long id;
 	private String nome;
 	private Date data_nasc;
 	private String cpf;
@@ -15,8 +16,9 @@ public class PessoaDTO {
 	
 	public PessoaDTO() {}
 
-	public PessoaDTO(String pNome, Date pData, String pCpf, String pSexo, Double pAltura, Double pPeso) {
+	public PessoaDTO(Long id, String pNome, Date pData, String pCpf, String pSexo, Double pAltura, Double pPeso) {
 		super();
+		this.id = id;
 		this.nome = pNome;
 		this.data_nasc = pData;
 		this.cpf = pCpf;
@@ -25,7 +27,16 @@ public class PessoaDTO {
 		this.peso = pPeso;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public PessoaDTO(Pessoa pessoa) {
+		id = pessoa.getId();
 		nome = pessoa.getNome();
 		data_nasc = pessoa.getData_nasc();
 		cpf = pessoa.getCpf();
