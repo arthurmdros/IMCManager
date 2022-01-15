@@ -1,4 +1,4 @@
-package com.arthurmdrosdev.IMCManager.DTO;
+package com.arthurmdrosdev.IMCManager.dto;
 
 import java.sql.Date;
 
