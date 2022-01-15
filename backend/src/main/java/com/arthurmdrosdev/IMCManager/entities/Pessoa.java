@@ -14,6 +14,7 @@ public class Pessoa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nome;
 	private Date data_nasc;
 	private String cpf;
@@ -22,6 +23,14 @@ public class Pessoa {
 	private Double peso;
 	
 	public Pessoa() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
