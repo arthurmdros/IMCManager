@@ -78,5 +78,6 @@ public class Pessoa {
 
 	public void setPeso(Double peso) {
 		this.peso = peso;
-	}	
+	}
+
 }
