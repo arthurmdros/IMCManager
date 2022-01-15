@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.arthurmdrosdev.IMCManager.dto.PessoaDTO;
+
 @Entity
 @Table(name = "tb_pessoa")
 public class Pessoa {
@@ -23,6 +25,8 @@ public class Pessoa {
 	private Double peso;
 	
 	public Pessoa() {}
+	
+	public Pessoa(PessoaDTO dto) {}
 
 	public Long getId() {
 		return id;
