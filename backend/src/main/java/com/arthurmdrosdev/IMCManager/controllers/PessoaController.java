@@ -42,16 +42,6 @@ public class PessoaController {
 	
 	@PutMapping(value = "/{id}")
 	public PessoaDTO update(@PathVariable Long id, @RequestBody PessoaDTO dto ) {
-		PessoaDTO pessoaFound = findOne(id);
-		if(pessoaFound != null) {
-			pessoaFound.setNome(dto.getNome());
-			pessoaFound.setData_nasc(dto.getData_nasc());
-			pessoaFound.setCpf(dto.getCpf());
-			pessoaFound.setSexo(dto.getSexo());
-			pessoaFound.setAltura(dto.getAltura());
-			pessoaFound.setPeso(dto.getPeso());
-			service.updatePessoa(dto, id);
-		}		
-		return pessoaFound;
+		return service.updatePessoa(dto, id);					
 	}
 }
