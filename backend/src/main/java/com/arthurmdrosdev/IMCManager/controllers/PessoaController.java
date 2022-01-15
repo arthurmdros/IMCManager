@@ -1,5 +1,4 @@
 package com.arthurmdrosdev.IMCManager.controllers;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,49 +11,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.arthurmdrosdev.IMCManager.entities.Pessoa;
-import com.arthurmdrosdev.IMCManager.repositories.PessoaRepository;
+import com.arthurmdrosdev.IMCManager.dto.PessoaDTO;
+import com.arthurmdrosdev.IMCManager.services.PessoaService;
 
 @RestController
 @RequestMapping(value = "/pessoas")
 public class PessoaController {
 	@Autowired
-	private PessoaRepository repository;
+	private PessoaService service;
 	
 	@GetMapping
-	public List<Pessoa> findAll() {
-		return repository.findAll();
+	public List<PessoaDTO> findAll() {
+		return service.findAll();
 	}
 
 	@GetMapping(value = "/{id}")
-	public Pessoa findOne(@PathVariable Long id) {
-		return repository.findById(id).get();
+	public PessoaDTO findOne(@PathVariable Long id) {
+		return service.findOne(id);
 	}
 	
 	@PostMapping
-	public Pessoa insert(@RequestBody Pessoa pessoa) {
-		return repository.save(pessoa);
+	public PessoaDTO insert(@RequestBody PessoaDTO dto) {		
+		return service.savePessoa(dto);		
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public void delete(@PathVariable Long id) {
-		Pessoa pessoa = findOne(id);
-		if(pessoa != null) {
-			repository.delete(pessoa);
-		}		
+		service.deletePessoa(id);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public Pessoa update(@PathVariable Long id, @RequestBody Pessoa pessoa ) {
-		Pessoa pessoaFound = findOne(id);
+	public PessoaDTO update(@PathVariable Long id, @RequestBody PessoaDTO dto ) {
+		PessoaDTO pessoaFound = findOne(id);
 		if(pessoaFound != null) {
-			pessoaFound.setNome(pessoa.getNome());
-			pessoaFound.setData_nasc(pessoa.getData_nasc());
-			pessoaFound.setCpf(pessoa.getCpf());
-			pessoaFound.setSexo(pessoa.getSexo());
-			pessoaFound.setAltura(pessoa.getAltura());
-			pessoaFound.setPeso(pessoa.getPeso());
-			repository.save(pessoaFound);
+			pessoaFound.setNome(dto.getNome());
+			pessoaFound.setData_nasc(dto.getData_nasc());
+			pessoaFound.setCpf(dto.getCpf());
+			pessoaFound.setSexo(dto.getSexo());
+			pessoaFound.setAltura(dto.getAltura());
+			pessoaFound.setPeso(dto.getPeso());
+			service.updatePessoa(dto, id);
 		}		
 		return pessoaFound;
 	}
