@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.arthurmdrosdev.IMCManager.dto.PessoaDTO;
@@ -24,6 +26,10 @@ public class Pessoa {
 	private Double altura;
 	private Double peso;
 	
+	@OneToOne
+	@JoinColumn(name = "classIMC_id")
+	private ClassificationIMC classIMC;	
+
 	public Pessoa() {}
 	
 	public Pessoa(PessoaDTO dto) {}
@@ -84,4 +90,11 @@ public class Pessoa {
 		this.peso = peso;
 	}
 
+	public ClassificationIMC getClassIMC() {
+		return classIMC;
+	}
+
+	public void setClassIMC(ClassificationIMC classIMC) {
+		this.classIMC = classIMC;
+	}
 }
