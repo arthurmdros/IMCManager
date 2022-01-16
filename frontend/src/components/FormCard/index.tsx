@@ -1,3 +1,5 @@
+import './styles.css';
+
 function FormCard() {
     return (
         <div className="register-container">
@@ -5,7 +7,7 @@ function FormCard() {
                 <section>
                     <h1>Cadastro</h1>
                     <p>Faça seu cadastro, entre na plataforma e calcule informações referentes a sua saúde corporal.</p>
-                    <a href="/">
+                    <a href="/pessoas">
                         Já possuo cadastro
                     </a>
                 </section>
@@ -21,6 +23,10 @@ function FormCard() {
                     <input
                         placeholder="CPF"
                         value="cpf"
+                    />
+                     <input
+                        placeholder="Sexo"
+                        value="sexo"
                     />
                     <input
                         placeholder="Altura"

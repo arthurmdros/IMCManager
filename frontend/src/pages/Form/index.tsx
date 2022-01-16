@@ -1,6 +1,8 @@
+import FormCard from "components/FormCard";
+
 function Form(){
     return(
-        <h1>Formulário para cadastro</h1>
+        <FormCard/>
     );
 }
 
