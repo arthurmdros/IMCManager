@@ -1,18 +1,22 @@
-import  './styles.css';
+import { Link } from 'react-router-dom';
+import './styles.css';
 
-function Navbar(){
-    return(
-    <header>
-        <nav className="container">
-            <div className="header-nav-content">              
-            <h1>IMC-Manager</h1>
-            <a href="/pessoas/form">
-                <div className="header-contact-container">
-                <p className="header-contact-link">Faça seu cadastro</p>
+type Props = {
+    link: string;
+    label: string;
+}
+
+function Navbar({link, label} : Props) {
+    return (
+        <header>
+            <nav className="container">
+                <div className="header-nav-content">
+                        <span>IMC-Manager</span>
+                        <div className="header-content-container">
+                            <Link className="button" to={link}>{label}</Link>
+                        </div>
                 </div>
-            </a>
-            </div>
-        </nav>
+            </nav>
         </header>
     );
 }
