@@ -1,0 +1,67 @@
+.personInfo div{
+    background: #FFF;
+    padding: 24px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.personInfo div .btn-peso{
+    width: 30%;
+    height: 30px;
+    background: #e02041;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    margin-top: 16px;
+    position: absolute;
+    right: 10px;
+    top: 24px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 30px;
+    transition: filter 0.2s;
+}
+
+.personInfo div .btn-imc{
+    width: 30%;
+    height: 30px;
+    background: #e02041;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    margin-top: 16px;
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 30px;
+    transition: filter 0.2s;
+}
+
+.personInfo div button:hover{
+    opacity: 0.8;
+}
+
+.personInfo div h3{
+    display: block;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #41414d;    
+}
+
+.personInfo div p + h3{
+    margin-top: 32px;
+}
+
+.personInfo div p{
+    color: #737380;
+    line-height: 21px;
+    font-size: 16px;
+}
