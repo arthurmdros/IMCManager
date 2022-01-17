@@ -14,7 +14,7 @@ function getDateAtual() {
 function FormCard() {
     return (
         <>
-            <Navbar link="/pessoas" label="Já possuo cadastro" />
+            <Navbar link="/" label="Já possuo cadastro" />
             <div className="register-container">
                 <div className="content">
                     <section>
