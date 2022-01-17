@@ -1,41 +1,18 @@
 .personInfo div{
     background: #FFF;
-    padding: 24px;
+    padding: 10px;
     border-radius: 8px;
     position: relative;
 }
 
-.personInfo div .btn-peso{
-    width: 30%;
+.personInfo div button{
+    width: 50%;
     height: 30px;
-    background: #e02041;
+    background: #141F6A;
     border: 0;
     border-radius: 8px;
     color: #FFF;
-    margin-top: 16px;
-    position: absolute;
-    right: 10px;
-    top: 24px;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    line-height: 30px;
-    transition: filter 0.2s;
-}
-
-.personInfo div .btn-imc{
-    width: 30%;
-    height: 30px;
-    background: #e02041;
-    border: 0;
-    border-radius: 8px;
-    color: #FFF;
-    margin-top: 16px;
-    position: absolute;
-    right: 10px;
-    top: 60px;
+    margin-right: 5px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -52,16 +29,22 @@
 .personInfo div h3{
     display: block;
     font-size: 18px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     color: #41414d;    
-}
-
-.personInfo div p + h3{
-    margin-top: 32px;
 }
 
 .personInfo div p{
     color: #737380;
     line-height: 21px;
+    margin-right: 50px;
     font-size: 16px;
+}
+
+.personInfo .btn-group{
+    display: flex;
+    align-items: center;    
+}
+.personInfo .height-group, .weight-group, .info-group{
+    display: flex;
+    align-items: flex-start;        
 }
