@@ -36,7 +36,6 @@
 .personInfo div p{
     color: #737380;
     line-height: 21px;
-    margin-right: 50px;
     font-size: 16px;
 }
 
@@ -44,7 +43,8 @@
     display: flex;
     align-items: center;    
 }
-.personInfo .height-group, .weight-group, .info-group{
+.personInfo .weight-group, .info-group{
     display: flex;
-    align-items: flex-start;        
+    align-items: flex-start;       
+    justify-content: space-between; 
 }
