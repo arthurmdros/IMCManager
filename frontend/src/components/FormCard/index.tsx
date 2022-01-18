@@ -13,7 +13,20 @@ function FormCard() {
     const [options, setOptions] = useState(["Masculino", "Feminino", "Prefiro não dizer", "Outro"]);
     const [selected, setSelected] = useState('0');
 
-    const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) =>{
+    function formataCPF(cpf: React.FocusEvent<HTMLInputElement, Element>) {
+        const elementoAlvo = cpf;
+        const cpfAtual = cpf.target.value;
+
+        let cpfAtualizado;
+
+        cpfAtualizado = cpfAtual.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,
+            function (regex, argumento1, argumento2, argumento3, argumento4) {
+                return argumento1 + '.' + argumento2 + '.' + argumento3 + '-' + argumento4;
+            })
+        elementoAlvo.target.value = cpfAtualizado.toString();
+    }
+
+    const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
 
         setSelected(selectedValue);
@@ -80,12 +93,15 @@ function FormCard() {
                         <input
                             type="text"
                             placeholder="Nome"
+                            required
                             id="nome"
                         />
                         <input
 
                             type="text"
                             placeholder="CPF"
+                            maxLength={14}
+                            onBlur={value => formataCPF(value)}
                             id="cpf"
                         />
                         <div className="field-group">
@@ -108,6 +124,7 @@ function FormCard() {
                             <div className="field">
                                 <input
                                     type="number"
+                                    required
                                     step="0.01" min="0"
                                     placeholder="Altura"
                                     id="altura"
@@ -116,6 +133,7 @@ function FormCard() {
                             <div className="field">
                                 <input
                                     type="number"
+                                    required
                                     step="0.01" min="0"
                                     placeholder="Peso"
                                     id="peso"
