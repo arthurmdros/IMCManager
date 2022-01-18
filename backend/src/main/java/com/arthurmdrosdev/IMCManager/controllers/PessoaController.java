@@ -1,7 +1,8 @@
 package com.arthurmdrosdev.IMCManager.controllers;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,8 @@ public class PessoaController {
 	private PessoaService service;
 	
 	@GetMapping
-	public List<PessoaDTO> findAll() {
-		return service.findAll();
+	public Page<PessoaDTO> findAll(Pageable pageable) {
+		return service.findAll(pageable);
 	}
 
 	@GetMapping(value = "/{id}")

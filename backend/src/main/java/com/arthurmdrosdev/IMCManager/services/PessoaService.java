@@ -1,9 +1,8 @@
 package com.arthurmdrosdev.IMCManager.services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,14 +18,9 @@ public class PessoaService {
 	private PessoaRepository repository;
 	
 	@Transactional(readOnly = true)
-	public List<PessoaDTO> findAll(){
-		List<Pessoa> result = repository.findAll();
-		List<PessoaDTO> resultDTO = new ArrayList<>();
-		PessoaDTO aux = new PessoaDTO();
-		for (Pessoa p : result) {
-			aux = new PessoaDTO(p);	
-			resultDTO.add(aux);
-		}		
+	public Page<PessoaDTO> findAll(Pageable pageable){
+		Page<Pessoa> result = repository.findAll(pageable);
+		Page<PessoaDTO> resultDTO = result.map(x -> new PessoaDTO(x));
 		return resultDTO;
 	}
 	

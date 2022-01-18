@@ -1,3 +1,4 @@
+INSERT INTO tb_classification(nome) VALUES ('Não atribuido');
 INSERT INTO tb_classification(nome) VALUES ('Magreza');
 INSERT INTO tb_classification(nome) VALUES ('Normal');
 INSERT INTO tb_classification(nome) VALUES ('Sobrepeso');
