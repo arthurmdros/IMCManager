@@ -27,7 +27,7 @@ useEffect(() => {
             const data = response.data as ContentPersons;
             setPage(data);
         });
-}, [pageNumber]);
+}, [page]);
 
 return (
     <>
