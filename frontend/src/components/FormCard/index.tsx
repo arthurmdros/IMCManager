@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import br from 'date-fns/locale/pt-BR';
 import DatePicker from 'react-datepicker';
 import Navbar from 'components/NavBar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDateAtual } from 'utils/getDate';
 import { BASE_URL } from 'utils/requests';
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
@@ -40,7 +40,7 @@ function FormCard() {
 
         const nome = (event.target as any).nome.value;
         const cpf = (event.target as any).cpf.value;
-        const date = (event.target as any).data.value;        
+        const date = (event.target as any).data.value;
         const data_nasc = DateConvertAnother(date);
         var sexo = (event.target as any).sexo.value;
         if (sexo === "Masculino") {
@@ -103,6 +103,7 @@ function FormCard() {
                             <div className="field">
                                 <DatePicker
                                     id="data"
+                                    locale={br}
                                     selected={dateSelected}
                                     dateFormat="dd/MM/yyyy"
                                     onChange={date => date && setDateSelected(date)}
