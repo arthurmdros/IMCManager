@@ -1,15 +1,18 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import DatePicker from 'react-datepicker';
 import Navbar from 'components/NavBar';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDateAtual } from 'utils/getDate';
 import { BASE_URL } from 'utils/requests';
+import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
+import { DateConvertAnother } from 'utils/convertDate';
 
 function FormCard() {
     const navigate = useNavigate();
-    const [dataSelected, setDataSelected] = useState(new Date());
-    const [dataNasc, setDataNasc] = useState(getDateAtual());
+    const [dateSelected, setDateSelected] = useState(new Date());
+    const [dataNasc, setDataNasc] = useState("");
     const [options, setOptions] = useState(["Masculino", "Feminino", "Prefiro não dizer", "Outro"]);
     const [selected, setSelected] = useState('0');
 
@@ -31,23 +34,14 @@ function FormCard() {
 
         setSelected(selectedValue);
     }
-
-    const handleDateSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
-
-        setDataSelected(new Date(event.target.value));
-        const dia = String(dataSelected.getDate()).padStart(2, '0');
-        const mes = String(dataSelected.getMonth() + 1).padStart(2, '0');
-        const ano = dataSelected.getFullYear();
-        const data_nasc = ano + '-' + mes + '-' + dia;
-        setDataNasc(data_nasc.toString());
-    }
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault();
 
         const nome = (event.target as any).nome.value;
         const cpf = (event.target as any).cpf.value;
+        const date = (event.target as any).data.value;        
+        const data_nasc = DateConvertAnother(date);
         var sexo = (event.target as any).sexo.value;
         if (sexo === "Masculino") {
             sexo = "M";
@@ -67,7 +61,7 @@ function FormCard() {
             data: {
                 nome: nome,
                 cpf: cpf,
-                data_nasc: dataNasc,
+                data_nasc: data_nasc,
                 sexo: sexo,
                 peso: peso,
                 altura: altura,
@@ -107,9 +101,11 @@ function FormCard() {
                         <div className="field-group">
 
                             <div className="field">
-                                <input id="data_nasc" type="date"
-                                    value={dataNasc}
-                                    onChange={date => handleDateSelected(date)}
+                                <DatePicker
+                                    id="data"
+                                    selected={dateSelected}
+                                    dateFormat="dd/MM/yyyy"
+                                    onChange={date => date && setDateSelected(date)}
                                 />
                             </div>
                             <div className="field">
