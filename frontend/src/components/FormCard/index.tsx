@@ -94,7 +94,7 @@ function FormCard() {
 
                             type="text"
                             placeholder="CPF"
-                            maxLength={14}
+                            required
                             onBlur={value => formataCPF(value)}
                             id="cpf"
                         />
