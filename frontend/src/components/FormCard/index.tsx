@@ -12,7 +12,6 @@ import { DateConvertAnother } from 'utils/convertDate';
 function FormCard() {
     const navigate = useNavigate();
     const [dateSelected, setDateSelected] = useState(new Date());
-    const [dataNasc, setDataNasc] = useState("");
     const options = ["Sexo","Masculino", "Feminino", "Prefiro não dizer", "Outro"];
     const [selected, setSelected] = useState('Sexo');
 
@@ -41,7 +40,7 @@ function FormCard() {
         const nome = (event.target as any).nome.value;
         const cpf = (event.target as any).cpf.value;
         const date = (event.target as any).data.value;
-        setDataNasc(DateConvertAnother(date));
+        const data_nasc = DateConvertAnother(date);
         var sexo = selected;
         if (sexo === "Masculino") {
             sexo = "M";
@@ -53,7 +52,6 @@ function FormCard() {
         const peso = (event.target as any).peso.value;
         const altura = (event.target as any).altura.value;
         const classIMC = { id: 1 };
-        
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
             method: 'POST',
@@ -61,7 +59,7 @@ function FormCard() {
             data: {
                 nome: nome,
                 cpf: cpf,
-                data_nasc: dataNasc,
+                data_nasc: data_nasc,
                 sexo: sexo,
                 peso: peso,
                 altura: altura,
