@@ -13,8 +13,8 @@ function FormCard() {
     const navigate = useNavigate();
     const [dateSelected, setDateSelected] = useState(new Date());
     const [dataNasc, setDataNasc] = useState("");
-    const [options, setOptions] = useState(["Masculino", "Feminino", "Prefiro não dizer", "Outro"]);
-    const [selected, setSelected] = useState('0');
+    const options = ["Sexo","Masculino", "Feminino", "Prefiro não dizer", "Outro"];
+    const [selected, setSelected] = useState('Sexo');
 
     function formataCPF(cpf: React.FocusEvent<HTMLInputElement, Element>) {
         const elementoAlvo = cpf;
@@ -41,8 +41,8 @@ function FormCard() {
         const nome = (event.target as any).nome.value;
         const cpf = (event.target as any).cpf.value;
         const date = (event.target as any).data.value;
-        const data_nasc = DateConvertAnother(date);
-        var sexo = (event.target as any).sexo.value;
+        setDataNasc(DateConvertAnother(date));
+        var sexo = selected;
         if (sexo === "Masculino") {
             sexo = "M";
         } else if (sexo === "Feminino") {
@@ -53,7 +53,7 @@ function FormCard() {
         const peso = (event.target as any).peso.value;
         const altura = (event.target as any).altura.value;
         const classIMC = { id: 1 };
-
+        
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
             method: 'POST',
@@ -61,7 +61,7 @@ function FormCard() {
             data: {
                 nome: nome,
                 cpf: cpf,
-                data_nasc: data_nasc,
+                data_nasc: dataNasc,
                 sexo: sexo,
                 peso: peso,
                 altura: altura,
