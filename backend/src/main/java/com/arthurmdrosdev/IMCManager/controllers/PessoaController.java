@@ -45,4 +45,9 @@ public class PessoaController {
 	public PessoaDTO update(@PathVariable Long id, @RequestBody PessoaDTO dto ) {
 		return service.updatePessoa(dto, id);					
 	}
+	
+	@PutMapping(value = "/{id}/classIMC")
+	public PessoaDTO updateClassIMC(@PathVariable Long id, @RequestBody PessoaDTO dto ) {
+		return service.updateClassIMC(dto, id);					
+	}
 }

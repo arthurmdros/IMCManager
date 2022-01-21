@@ -65,6 +65,17 @@ public class PessoaService {
 	}
 	
 	@Transactional
+	public PessoaDTO updateClassIMC(PessoaDTO dto, Long id) {	
+		Pessoa pessoaFound = repository.getById(id);
+		if(pessoaFound != null) {	
+			pessoaFound.setClassIMC(dto.getClassIMC());
+		}		
+		pessoaFound = repository.saveAndFlush(pessoaFound);
+		
+		return new PessoaDTO(pessoaFound);
+	}
+	
+	@Transactional
 	public void deletePessoa(@PathVariable Long id) {
 		Pessoa pessoaFound = repository.findById(id).get();
 		if(pessoaFound != null) {
