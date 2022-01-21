@@ -5,7 +5,6 @@ import { Persons } from 'types/Persons';
 import { DateConvert } from 'utils/convertDate';
 import { getPesoIdeal } from 'utils/getPesoIdeal';
 import './styles.css';
-import { getIMC } from 'utils/getIMC';
 
 type Props = {
     person: Persons;
@@ -54,7 +53,7 @@ function PersonInfo({ person }: Props) {
                 </div>
                 
                 <PopUpPeso isPopUpPesoVisible={isPopUpPesoVisible} onBackdropClick={togglePopUpPeso} message={getPesoIdeal(person.sexo, person.altura)} />               
-                <PopUpIMC isPopUpIMCVisible={isPopUpIMCVisible} onBackdropClick={togglePopUpIMC} message={getIMC(person.peso, person.altura)} />               
+                <PopUpIMC isPopUpIMCVisible={isPopUpIMCVisible} onBackdropClick={togglePopUpIMC} person={person}/>               
             </div>
         </div>
     );
