@@ -83,13 +83,14 @@ function FormCard() {
                     </section>
                     <form onSubmit={handleSubmit}>
                         <input
+                            className='input-info'
                             type="text"
                             placeholder="Nome"
                             required
                             id="nome"
                         />
                         <input
-
+                            className='input-info'
                             type="text"
                             placeholder="CPF"
                             required
