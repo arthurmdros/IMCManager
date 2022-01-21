@@ -6,6 +6,6 @@ export function getPesoIdeal(sexo: string, altura: number) {
         const result = (62.1 * altura ) - 44.7;
         return result.toFixed(2);        
     } else {
-        return "impossível calcular";
+        return "Recomendamos que verifique seu IMC";
     }
 }
