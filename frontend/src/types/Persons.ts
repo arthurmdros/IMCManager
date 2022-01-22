@@ -5,7 +5,7 @@ export type classIMC = {
 export type Persons = {
     id: number;
     nome: string;
-    data_nasc: string;
+    data_nasc: Date;
     cpf: string;
     sexo: string;
     altura: number;
