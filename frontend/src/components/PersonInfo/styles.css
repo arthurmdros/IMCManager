@@ -5,7 +5,7 @@
     position: relative;
 }
 
-.personInfo div button{
+.personInfo div .button-action{
     width: 50%;
     height: 30px;
     background: #141F6A;
@@ -29,7 +29,6 @@
 .personInfo div h3{
     display: block;
     font-size: 18px;
-    margin-bottom: 10px;
     color: #41414d;    
 }
 
@@ -47,4 +46,31 @@
     display: flex;
     align-items: flex-start;       
     justify-content: space-between; 
+    margin-top: 20px;
+    height: 30px;
 }
+
+.personInfo button {
+    height: 20px;   
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    color: #41414d;
+    background: transparent;  
+    transition: border-color 0.5s;
+  }
+
+  .personInfo .button-profile{      
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    border: 0;
+    width: 25%;
+    color: #41414d;
+    font-size: 16px;
+    display: flex;
+    align-items: center;        
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;    
+    margin-bottom: 0px;
+  }

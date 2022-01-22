@@ -1,17 +1,19 @@
 import PopUpPeso from 'components/PopUp/PopUpPeso';
 import PopUpIMC from 'components/PopUp/PopUpIMC';
+import { FiUser } from "react-icons/fi";
 import { useState } from 'react';
 import { Persons } from 'types/Persons';
 import { DateConvert } from 'utils/convertDate';
 import { getPesoIdeal } from 'utils/getPesoIdeal';
 import './styles.css';
+import { Link } from 'react-router-dom';
 
 type Props = {
     person: Persons;
 }
 function PersonInfo({ person }: Props) {
 
-    const [isPopUpPesoVisible, setIsPopUpPesoVisible] = useState(false);   
+    const [isPopUpPesoVisible, setIsPopUpPesoVisible] = useState(false);
     const togglePopUpPeso = () => {
         setIsPopUpPesoVisible(wasPopUpPesoVisible => !wasPopUpPesoVisible)
     }
@@ -29,11 +31,7 @@ function PersonInfo({ person }: Props) {
                     <p>{person.nome}</p>
                 </div>
                 <div className="info-group">
-                    <h3>CPF:</h3>
-                    <p>{person.cpf}</p>
-                </div>
-                <div className="info-group">
-                    <h3>Data:</h3>
+                    <h3>Nascido em:</h3>
                     <p>{DateConvert(person.data_nasc)}</p>
                 </div>
                 <div className="info-group">
@@ -47,13 +45,16 @@ function PersonInfo({ person }: Props) {
                     <h3>Altura:</h3>
                     <p>{person.altura}</p>
                 </div>
+                <Link className="button-profile"  to={`/pessoas/update/${person.id}`}> Perfil
+                    <FiUser size={18} color="#141F6A" />
+                </Link>
                 <div className="btn-group">
-                        <button type="button" onClick={togglePopUpPeso}>Peso ideal</button>
-                        <button type="button" onClick={togglePopUpIMC}>IMC</button>                                                
+                    <button className='button-action' type="button" onClick={togglePopUpPeso}>Peso ideal</button>
+                    <button className='button-action' type="button" onClick={togglePopUpIMC}>IMC</button>
                 </div>
-                
-                <PopUpPeso isPopUpPesoVisible={isPopUpPesoVisible} onBackdropClick={togglePopUpPeso} message={getPesoIdeal(person.sexo, person.altura)} />               
-                <PopUpIMC isPopUpIMCVisible={isPopUpIMCVisible} onBackdropClick={togglePopUpIMC} person={person}/>               
+
+                <PopUpPeso isPopUpPesoVisible={isPopUpPesoVisible} onBackdropClick={togglePopUpPeso} message={getPesoIdeal(person.sexo, person.altura)} />
+                <PopUpIMC isPopUpIMCVisible={isPopUpIMCVisible} onBackdropClick={togglePopUpIMC} person={person} />
             </div>
         </div>
     );
