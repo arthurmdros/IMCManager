@@ -32,7 +32,20 @@ function UpdateCard({ personId }: Props) {
         const selectedValue = event.target.value;
 
         setSelected(selectedValue);
+    }  
+
+    const callDelete = () => {
+        try {
+            axios.delete(`${BASE_URL}/pessoas/${personId}`)
+                .then(response => {
+                    alert("Registro deletado com sucesso!")
+                    navigate("/");
+                });
+        } catch (err) {
+            alert('Erro ao deletar registro, tente novamente.');
+        }
     }
+
     return (
         <>
             <Navbar link="/" label="Retornar para home" />
@@ -94,7 +107,7 @@ function UpdateCard({ personId }: Props) {
                         </div>
                         <div className="btn-group">
                             <button className="button-update" type="submit">Atualizar informações</button>
-                            <button className="button-delete" type="button" onClick={() => alert("Deletar")}>Deletar registro</button>
+                            <button className="button-delete" type="button" onClick={callDelete}>Deletar registro</button>
                         </div>
                     </form>
                 </div >
