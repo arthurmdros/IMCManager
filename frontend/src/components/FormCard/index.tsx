@@ -7,12 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from 'utils/requests';
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
-import { DateConvertAnother } from 'utils/convertDate';
 
 function FormCard() {
     const navigate = useNavigate();
     const [dateSelected, setDateSelected] = useState(new Date());
-    const options = ["Sexo","Masculino", "Feminino", "Prefiro não dizer", "Outro"];
+    const options = ["Sexo", "Masculino", "Feminino", "Prefiro não dizer", "Outro"];
     const [selected, setSelected] = useState('Sexo');
 
     function formataCPF(cpf: React.FocusEvent<HTMLInputElement, Element>) {
@@ -39,8 +38,7 @@ function FormCard() {
 
         const nome = (event.target as any).nome.value;
         const cpf = (event.target as any).cpf.value;
-        const date = (event.target as any).data.value;
-        const data_nasc = DateConvertAnother(date);
+        const data_nasc = dateSelected;        
         var sexo = selected;
         if (sexo === "Masculino") {
             sexo = "M";
@@ -52,6 +50,7 @@ function FormCard() {
         const peso = (event.target as any).peso.value;
         const altura = (event.target as any).altura.value;
         const classIMC = { id: 1 };
+
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
             method: 'POST',
@@ -101,7 +100,6 @@ function FormCard() {
 
                             <div className="field">
                                 <DatePicker
-                                    id="data"
                                     locale={br}
                                     selected={dateSelected}
                                     dateFormat="dd/MM/yyyy"
@@ -119,6 +117,7 @@ function FormCard() {
                         <div className="field-group">
                             <div className="field">
                                 <input
+                                    className='input-number'
                                     type="number"
                                     required
                                     step="0.01" min="0"
@@ -128,6 +127,7 @@ function FormCard() {
                             </div>
                             <div className="field">
                                 <input
+                                    className='input-number'
                                     type="number"
                                     required
                                     step="0.01" min="0"
