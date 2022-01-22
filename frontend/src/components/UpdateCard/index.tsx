@@ -16,6 +16,9 @@ type Props = {
 function UpdateCard({ personId }: Props) {
     const navigate = useNavigate();
     const [person, setPerson] = useState<Persons>();
+    const [nome, setNome] = useState("");
+    const [altura, setAltura] = useState(0);
+    const [peso, setPeso] = useState(0);
     const [dateSelected, setDateSelected] = useState(new Date());
     const options = ["Sexo", "Masculino", "Feminino", "Prefiro não dizer", "Outro"];
     const [selected, setSelected] = useState('');
@@ -23,7 +26,10 @@ function UpdateCard({ personId }: Props) {
     useEffect(() => {
         axios.get(`${BASE_URL}/pessoas/${personId}`)
             .then(response => {
-                setPerson(response.data);            
+                setPerson(response.data);    
+                setNome(response.data.nome);
+                setAltura(response.data.altura);
+                setPeso(response.data.peso);
             });
     }, [personId]);
 
@@ -33,6 +39,42 @@ function UpdateCard({ personId }: Props) {
 
         setSelected(selectedValue);
     }  
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+        event.preventDefault();
+
+        const cpf = person?.cpf; 
+        const data_nasc = person?.data_nasc;
+        var sexo = selected;
+        if (sexo === "Masculino") {
+            sexo = "M";
+        } else if (sexo === "Feminino") {
+            sexo = "F";
+        } else {
+            sexo = "";
+        }
+        const classIMC = person?.classIMC;
+
+        const config: AxiosRequestConfig = {
+             baseURL: BASE_URL,
+             method: 'PUT',
+             url: `/pessoas/${personId}`,
+             data: {
+                 nome: nome,
+                 cpf: cpf,
+                 data_nasc: data_nasc,
+                 sexo: sexo,
+                 peso: peso,
+                 altura: altura,
+                 classIMC: classIMC
+             }
+         }
+ 
+         axios(config).then(response => {
+             navigate("/");
+         })
+    }
 
     const callDelete = () => {
         try {
@@ -55,14 +97,15 @@ function UpdateCard({ personId }: Props) {
                         <h1>Atualizar dados</h1>
                         <p>Aqui você pode atualizar seus dados cadastrais na plataforma ou apagá-los.</p>
                     </section>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
                             className='input-info'
                             type="text"
                             placeholder="Nome"
                             required
                             id="nome"
-                            value={person?.nome}
+                            value={nome}
+                            onChange={e => setNome(e.target.value)}
                         />
                         <div className="field-group">
 
@@ -91,7 +134,8 @@ function UpdateCard({ personId }: Props) {
                                     step="0.01" min="0"
                                     placeholder="Altura"
                                     id="altura"
-                                    value={person?.altura}
+                                    value={altura}
+                                    onChange={e => setAltura(e.target.value as unknown as number)}
                                 />
                             </div>
                             <div className="field">
@@ -101,7 +145,8 @@ function UpdateCard({ personId }: Props) {
                                     step="0.01" min="0"
                                     placeholder="Peso"
                                     id="peso"
-                                    value={person?.peso}
+                                    value={peso}
+                                    onChange={e => setPeso(e.target.value as unknown as number)}
                                 />
                             </div>
                         </div>
