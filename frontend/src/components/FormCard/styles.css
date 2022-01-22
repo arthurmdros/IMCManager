@@ -19,8 +19,6 @@
 
     display: flex;
     flex-direction: column; 
-    align-items: center;
-    justify-content: center;
 }
 
 .register-container .content section{
@@ -42,6 +40,7 @@
 .register-container .content form{
     width: 100%;
     max-width: 450px;
+    margin-left: 20px;
 }
 
 .register-container .content form input{
@@ -80,4 +79,8 @@
 
 .register-container .input-info{
     width: 95%;
+}
+
+.register-container .content form .field-group .field input{
+    width: 90%;
 }
