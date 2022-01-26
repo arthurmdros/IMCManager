@@ -7,6 +7,7 @@ import { DateConvert } from 'utils/convertDate';
 import { getPesoIdeal } from 'utils/getPesoIdeal';
 import './styles.css';
 import { Link } from 'react-router-dom';
+import { hideCPF } from 'utils/hideCPF';
 
 type Props = {
     person: Persons;
@@ -29,6 +30,10 @@ function PersonInfo({ person }: Props) {
                 <div className="info-group">
                     <h3>Nome:</h3>
                     <p>{person.nome}</p>
+                </div>
+                  <div className="info-group">
+                    <h3>CPF:</h3>
+                    <p>{hideCPF(person.cpf)}</p>
                 </div>
                 <div className="info-group">
                     <h3>Nascido em:</h3>
