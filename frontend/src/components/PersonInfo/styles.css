@@ -61,15 +61,15 @@
 
   .personInfo .button-profile{      
     position: absolute;
+    margin-right: 20px;
     right: 0px;
     top: 10px;
     border: 0;
-    width: 25%;
     color: #41414d;
     font-size: 16px;
     display: flex;
     align-items: center;        
-    text-decoration: none;
+    text-decoration: none;    
     font-weight: 500;
     transition: opacity 0.2s;    
     margin-bottom: 0px;
