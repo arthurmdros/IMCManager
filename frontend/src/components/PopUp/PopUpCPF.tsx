@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { BASE_URL } from "utils/requests";
-import { useNavigate } from 'react-router-dom';
 import { DesktopPopUpCPFContainer, Header, BtnGroup } from "./PopUpCPF.styles";
 import PopUpCPFWrapper from "./PoPUpCPFWrapper";
 import "./styles.css";
