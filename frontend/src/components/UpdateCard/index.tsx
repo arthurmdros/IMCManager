@@ -8,6 +8,7 @@ import { BASE_URL } from 'utils/requests';
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
 import { Persons } from 'types/Persons';
+import PopUpCPF from 'components/PopUp/PopUpCPF';
 
 type Props = {
     personId: string;
@@ -76,16 +77,9 @@ function UpdateCard({ personId }: Props) {
          })
     }
 
-    const callDelete = () => {
-        try {
-            axios.delete(`${BASE_URL}/pessoas/${personId}`)
-                .then(response => {
-                    alert("Registro deletado com sucesso!")
-                    navigate("/");
-                });
-        } catch (err) {
-            alert('Erro ao deletar registro, tente novamente.');
-        }
+    const [isPopUpCPFVisible, setIsPopUpCPFVisible] = useState(false);
+    const togglePopUpCPF = () => {
+        setIsPopUpCPFVisible(wasPopUpCPFVisible => !wasPopUpCPFVisible)
     }
 
     return (
@@ -152,7 +146,8 @@ function UpdateCard({ personId }: Props) {
                         </div>
                         <div className="btn-group">
                             <button className="button-update" type="submit">Atualizar informações</button>
-                            <button className="button-delete" type="button" onClick={callDelete}>Deletar registro</button>
+                            <button className="button-delete" type="button" onClick={togglePopUpCPF}>Deletar registro</button>                            
+                            <PopUpCPF isPopUpCPFVisible={isPopUpCPFVisible} onBackdropClick={togglePopUpCPF}/>
                         </div>
                     </form>
                 </div >
