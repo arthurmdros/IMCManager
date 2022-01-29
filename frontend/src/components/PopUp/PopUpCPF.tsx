@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
-import { cpfMask } from "utils/cpfMask";
+import { BASE_URL } from "utils/requests";
+import { useNavigate } from 'react-router-dom';
 import { DesktopPopUpCPFContainer, Header, BtnGroup } from "./PopUpCPF.styles";
 import PopUpCPFWrapper from "./PoPUpCPFWrapper";
 import "./styles.css";
@@ -7,45 +9,59 @@ import "./styles.css";
 interface PopUpCPFWrapperProps {
     isPopUpCPFVisible: boolean;
     onBackdropClick: () => void;
+    cpfUser: string;
+    personId: string;
 }
 
-const PopUpCPF: React.FC<PopUpCPFWrapperProps> = ({ onBackdropClick, isPopUpCPFVisible }) => {
+const PopUpCPF: React.FC<PopUpCPFWrapperProps> = ({ onBackdropClick, isPopUpCPFVisible, cpfUser, personId }) => {
     if (!isPopUpCPFVisible) { return null }
 
-    function deleteByCPF() {
-        alert("Deletar registro");
+    function handleCPF(cpf: React.FocusEvent<HTMLInputElement, Element>) {
+        const elementoAlvo = cpf;
+        const cpfAtual = cpf.target.value;
 
-        /*
-            try {
-                axios.delete(`${BASE_URL}/pessoas/${personId}`)
+        let cpfAtualizado;
+
+        cpfAtualizado = cpfAtual.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,
+            function (regex, argumento1, argumento2, argumento3, argumento4) {
+                return argumento1 + '.' + argumento2 + '.' + argumento3 + '-' + argumento4;
+            })
+        elementoAlvo.target.value = cpfAtualizado.toString();
+    }
+
+    function deleteByCPF(event: React.FormEvent<HTMLFormElement>) {
+        const cpfValidate = (event.target as any).cpf.value;
+        if (cpfValidate === cpfUser) { 
+            axios.delete(`${BASE_URL}/pessoas/${personId}`)
                     .then(response => {
-                        alert("Registro deletado com sucesso!")
-                        navigate("/");
+                        alert("Registro deletado com sucesso!");
+                        onBackdropClick();
                     });
-            } catch (err) {
-                alert('Erro ao deletar registro, tente novamente.');
-            }
-        */
+        }else { 
+            alert('Erro ao deletar registro, tente novamente.');
+        }
     }
 
     return (
         <PopUpCPFWrapper onBackdropClick={() => { onBackdropClick() }}>
             <DesktopPopUpCPFContainer>
                 <Header>
-                    <h3>Informe seu CPF:</h3>
-                    <input
-                        className="input-info"
-                        type="text"
-                        placeholder="CPF"
-                        required
-                        maxLength={11}
-                        onChange={value => cpfMask(value.toString())}
-                        id="cpf"
-                    />
-                    <BtnGroup>
-                        <button className="button-confirm" type="button" onClick={() => {deleteByCPF(); onBackdropClick()}}>Confirmar</button>
-                        <button className="button-cancel" type="button" onClick={onBackdropClick}>Cancelar</button>
-                    </BtnGroup>
+                    <form onSubmit={deleteByCPF}>
+                        <h3>Informe seu CPF:</h3>
+                        <input
+                            className="input-info"
+                            type="text"
+                            placeholder="CPF"
+                            required
+                            maxLength={11}
+                            onBlur={value => handleCPF(value)}
+                            id="cpf"
+                        />
+                        <BtnGroup>
+                            <button className="button-confirm" type="submit">Confirmar</button>
+                            <button className="button-cancel" type="button" onClick={onBackdropClick}>Cancelar</button>
+                        </BtnGroup>
+                    </form>
                 </Header>
             </DesktopPopUpCPFContainer>
         </PopUpCPFWrapper>

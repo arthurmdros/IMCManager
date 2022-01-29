@@ -18,6 +18,7 @@ function UpdateCard({ personId }: Props) {
     const navigate = useNavigate();
     const [person, setPerson] = useState<Persons>();
     const [nome, setNome] = useState("");
+    const [cpf, setCPF] = useState("");
     const [altura, setAltura] = useState(0);
     const [peso, setPeso] = useState(0);
     const [dateSelected, setDateSelected] = useState(new Date());
@@ -27,8 +28,9 @@ function UpdateCard({ personId }: Props) {
     useEffect(() => {
         axios.get(`${BASE_URL}/pessoas/${personId}`)
             .then(response => {
-                setPerson(response.data);    
+                setPerson(response.data);
                 setNome(response.data.nome);
+                setCPF(response.data.cpf);
                 setAltura(response.data.altura);
                 setPeso(response.data.peso);
             });
@@ -39,13 +41,13 @@ function UpdateCard({ personId }: Props) {
         const selectedValue = event.target.value;
 
         setSelected(selectedValue);
-    }  
+    }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 
         event.preventDefault();
 
-        const cpf = person?.cpf; 
+        const cpf = person?.cpf;
         const data_nasc = person?.data_nasc;
         var sexo = selected;
         if (sexo === "Masculino") {
@@ -58,23 +60,23 @@ function UpdateCard({ personId }: Props) {
         const classIMC = person?.classIMC;
 
         const config: AxiosRequestConfig = {
-             baseURL: BASE_URL,
-             method: 'PUT',
-             url: `/pessoas/${personId}`,
-             data: {
-                 nome: nome,
-                 cpf: cpf,
-                 data_nasc: data_nasc,
-                 sexo: sexo,
-                 peso: peso,
-                 altura: altura,
-                 classIMC: classIMC
-             }
-         }
- 
-         axios(config).then(response => {
-             navigate("/");
-         })
+            baseURL: BASE_URL,
+            method: 'PUT',
+            url: `/pessoas/${personId}`,
+            data: {
+                nome: nome,
+                cpf: cpf,
+                data_nasc: data_nasc,
+                sexo: sexo,
+                peso: peso,
+                altura: altura,
+                classIMC: classIMC
+            }
+        }
+
+        axios(config).then(response => {
+            navigate("/");
+        })
     }
 
     const [isPopUpCPFVisible, setIsPopUpCPFVisible] = useState(false);
@@ -108,8 +110,8 @@ function UpdateCard({ personId }: Props) {
                                     id="data"
                                     locale={br}
                                     selected={dateSelected}
-                                    dateFormat="dd/MM/yyyy"                                    
-                                    onChange={date => date && setDateSelected(date)}                                    
+                                    dateFormat="dd/MM/yyyy"
+                                    onChange={date => date && setDateSelected(date)}
                                 />
                             </div>
                             <div className="field">
@@ -146,8 +148,8 @@ function UpdateCard({ personId }: Props) {
                         </div>
                         <div className="btn-group">
                             <button className="button-update" type="submit">Atualizar informações</button>
-                            <button className="button-delete" type="button" onClick={togglePopUpCPF}>Deletar registro</button>                            
-                            <PopUpCPF isPopUpCPFVisible={isPopUpCPFVisible} onBackdropClick={togglePopUpCPF}/>
+                            <button className="button-delete" type="button" onClick={togglePopUpCPF}>Deletar registro</button>
+                            <PopUpCPF isPopUpCPFVisible={isPopUpCPFVisible} onBackdropClick={togglePopUpCPF} cpfUser={cpf} personId={personId} />
                         </div>
                     </form>
                 </div >
