@@ -3,7 +3,7 @@ import styled from "styled-components"
 const PopUpPesoContainer = styled.div`
 background-color: black;
 display: flex;
-fexl-direction: column;
+flex-direction: column;
 align-items: center;
 position: relative;
 `;
