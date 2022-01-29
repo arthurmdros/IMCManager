@@ -1,3 +1,9 @@
+form {
+    width: 100%;
+    max-width: 450px;
+    margin-left: 20px;
+}
+
 h3{
     color: white;
     font-size: 35px;

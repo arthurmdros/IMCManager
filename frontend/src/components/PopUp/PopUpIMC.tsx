@@ -55,7 +55,7 @@ const PopUpIMC: React.FC<PopUpIMCWrapperProps> = ({ onBackdropClick, isPopUpIMCV
         <PopUpIMCWrapper onBackdropClick={() => {onBackdropClick(); handleClassIMC()}}>
             <DesktopPopUpIMCContainer>
                 <Header>
-                    O resultado foi: <p>{resultIMC} - {resultClassIMC}</p>
+                    O resultado é: {resultIMC} - {resultClassIMC}
                 </Header>
             </DesktopPopUpIMCContainer>
         </PopUpIMCWrapper>

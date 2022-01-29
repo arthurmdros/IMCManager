@@ -12,7 +12,7 @@ export const DesktopPopUpCPFContainer = styled(PopUpCPFContainer)`
 border-radius: 7px;
 box-shadow: 0 0 32px rgba(0,0,0,0.5);
 padding: 40px;
-width: 600px;
+width: 450px;
 font-size: 26px;
 justify-content: center;
 `
@@ -29,4 +29,5 @@ export const BtnGroup = styled.div`
 width: 70%;    
 display: flex;    
 align-items: center;    
+margin-left:40px;
 `
