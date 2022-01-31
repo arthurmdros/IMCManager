@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
 import { Persons } from 'types/Persons';
 import PopUpCPF from 'components/PopUp/PopUpCPF';
+import { DateConvert } from 'utils/convertDate';
 
 type Props = {
     personId: string;
@@ -22,7 +23,8 @@ function UpdateCard({ personId }: Props) {
     const [altura, setAltura] = useState(0);
     const [peso, setPeso] = useState(0);
     const [dateSelected, setDateSelected] = useState(new Date());
-    const options = ["Sexo", "Masculino", "Feminino", "Prefiro não dizer", "Outro"];
+    const [data_nasc, setData_nasc] = useState("");
+    const options = ["Masculino", "Feminino", "Prefiro não dizer", "Outro"];
     const [selected, setSelected] = useState('');
 
     useEffect(() => {
@@ -30,12 +32,28 @@ function UpdateCard({ personId }: Props) {
             .then(response => {
                 setPerson(response.data);
                 setNome(response.data.nome);
+                setData_nasc(DateConvert(response.data.data_nasc));
+                if (response.data.sexo === "M") {
+                    setSelected("Masculino");
+                } else if (response.data.sexo === "F") {
+                    setSelected("Feminino");
+                } else {
+                    setSelected("Outro");
+                }
                 setCPF(response.data.cpf);
                 setAltura(response.data.altura);
                 setPeso(response.data.peso);
             });
     }, [personId]);
 
+
+    const DatePickerSelect = (date: Date) => {    
+        setDateSelected(date);
+        const day = date.getDate();   
+        const month = date.getMonth() + 1; 
+        const year = date.getFullYear();   
+        setData_nasc(`${day}/${month}/${year}`);   
+    }
 
     const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
@@ -48,7 +66,7 @@ function UpdateCard({ personId }: Props) {
         event.preventDefault();
 
         const cpf = person?.cpf;
-        const data_nasc = person?.data_nasc;
+        const data_nasc = dateSelected;
         var sexo = selected;
         if (sexo === "Masculino") {
             sexo = "M";
@@ -107,15 +125,16 @@ function UpdateCard({ personId }: Props) {
 
                             <div className="field">
                                 <DatePicker
-                                    id="data"
                                     locale={br}
                                     selected={dateSelected}
+                                    onChange={date => date && DatePickerSelect(date)}
                                     dateFormat="dd/MM/yyyy"
-                                    onChange={date => date && setDateSelected(date)}
+                                    value={data_nasc}
                                 />
                             </div>
                             <div className="field">
                                 <select className="select-input" id="sexo" placeholder='Sexo' onChange={e => handleSelected(e)}>
+                                    <option selected disabled hidden>{selected}</option>
                                     {options.map(option => (
                                         <option key={option} value={option}>{option}</option>
                                     ))}
@@ -128,7 +147,7 @@ function UpdateCard({ personId }: Props) {
                                     type="number"
                                     required
                                     step="0.01" min="0"
-                                    placeholder="Altura"
+                                    placeholder="Altura (m)"
                                     id="altura"
                                     value={altura}
                                     onChange={e => setAltura(e.target.value as unknown as number)}
@@ -139,7 +158,7 @@ function UpdateCard({ personId }: Props) {
                                     type="number"
                                     required
                                     step="0.01" min="0"
-                                    placeholder="Peso"
+                                    placeholder="Peso (kg)"
                                     id="peso"
                                     value={peso}
                                     onChange={e => setPeso(e.target.value as unknown as number)}

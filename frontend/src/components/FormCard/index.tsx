@@ -12,7 +12,7 @@ import { cpfMask } from 'utils/cpfMask';
 function FormCard() {
     const navigate = useNavigate();
     const [dateSelected, setDateSelected] = useState(new Date());
-    const options = ["Sexo", "Masculino", "Feminino", "Prefiro não dizer", "Outro"];
+    const options = ["Masculino", "Feminino", "Prefiro não dizer", "Outro"];
     const [selected, setSelected] = useState('Sexo');
     const [cpf, setCPF] = useState('');
 
@@ -43,7 +43,7 @@ function FormCard() {
         const peso = (event.target as any).peso.value;
         const altura = (event.target as any).altura.value;
         const classIMC = { id: 1 };
-        
+
         const config: AxiosRequestConfig = {
             baseURL: BASE_URL,
             method: 'POST',
@@ -103,6 +103,7 @@ function FormCard() {
                             </div>
                             <div className="field">
                                 <select className="select-input" id="sexo" placeholder='Sexo' onChange={e => handleSelected(e)}>
+                                    <option selected disabled hidden>Sexo</option>
                                     {options.map(option => (
                                         <option key={option} value={option}>{option}</option>
                                     ))}
@@ -116,7 +117,7 @@ function FormCard() {
                                     type="number"
                                     required
                                     step="0.01" min="0"
-                                    placeholder="Altura"
+                                    placeholder="Altura (m)"
                                     id="altura"
                                 />
                             </div>
@@ -126,7 +127,7 @@ function FormCard() {
                                     type="number"
                                     required
                                     step="0.01" min="0"
-                                    placeholder="Peso"
+                                    placeholder="Peso (kg)"
                                     id="peso"
                                 />
                             </div>

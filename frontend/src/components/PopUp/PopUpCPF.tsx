@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { BASE_URL } from "utils/requests";
-import { useNavigate } from 'react-router-dom';
 import { DesktopPopUpCPFContainer, Header, BtnGroup } from "./PopUpCPF.styles";
 import PopUpCPFWrapper from "./PoPUpCPFWrapper";
 import "./styles.css";
@@ -47,7 +46,7 @@ const PopUpCPF: React.FC<PopUpCPFWrapperProps> = ({ onBackdropClick, isPopUpCPFV
             <DesktopPopUpCPFContainer>
                 <Header>
                     <form onSubmit={deleteByCPF}>
-                        <h3>Informe seu CPF:</h3>
+                        <h3>Informe seu CPF (somente números):</h3>
                         <input
                             className="input-info"
                             type="text"
