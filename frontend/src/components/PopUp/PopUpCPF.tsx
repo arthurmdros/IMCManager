@@ -52,6 +52,7 @@ const PopUpCPF: React.FC<PopUpCPFWrapperProps> = ({ onBackdropClick, isPopUpCPFV
                             type="text"
                             placeholder="CPF"
                             required
+                            minLength={11}
                             maxLength={11}
                             onBlur={value => handleCPF(value)}
                             id="cpf"
