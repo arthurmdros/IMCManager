@@ -9,7 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
 import { Persons } from 'types/Persons';
 import PopUpCPF from 'components/PopUp/PopUpCPF';
-import { DateConvert } from 'utils/convertDate';
 
 type Props = {
     personId: string;
@@ -23,16 +22,20 @@ function UpdateCard({ personId }: Props) {
     const [altura, setAltura] = useState(0);
     const [peso, setPeso] = useState(0);
     const [dateSelected, setDateSelected] = useState(new Date());
-    const [data_nasc, setData_nasc] = useState("");
     const options = ["Masculino", "Feminino", "Prefiro não dizer", "Outro"];
     const [selected, setSelected] = useState('');
+
+    const setDateSelectedResponse = (date: Date) =>{
+        date.setDate(date.getDate() + 1);
+        setDateSelected(date);        
+    }
 
     useEffect(() => {
         axios.get(`${BASE_URL}/pessoas/${personId}`)
             .then(response => {
                 setPerson(response.data);
                 setNome(response.data.nome);
-                setData_nasc(DateConvert(response.data.data_nasc));
+                setDateSelectedResponse(new Date(response.data.data_nasc));
                 if (response.data.sexo === "M") {
                     setSelected("Masculino");
                 } else if (response.data.sexo === "F") {
@@ -46,15 +49,6 @@ function UpdateCard({ personId }: Props) {
             });
     }, [personId]);
 
-
-    const DatePickerSelect = (date: Date) => {    
-        setDateSelected(date);
-        const day = date.getDate();   
-        const month = date.getMonth() + 1; 
-        const year = date.getFullYear();   
-        setData_nasc(`${day}/${month}/${year}`);   
-    }
-
     const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
 
@@ -65,7 +59,7 @@ function UpdateCard({ personId }: Props) {
 
         event.preventDefault();
 
-        const cpf = person?.cpf;
+        const cpf = person?.cpf;                
         const data_nasc = dateSelected;
         var sexo = selected;
         if (sexo === "Masculino") {
@@ -126,10 +120,9 @@ function UpdateCard({ personId }: Props) {
                             <div className="field">
                                 <DatePicker
                                     locale={br}
-                                    selected={dateSelected}
-                                    onChange={date => date && DatePickerSelect(date)}
-                                    dateFormat="dd/MM/yyyy"
-                                    value={data_nasc}
+                                    selected={dateSelected}                                    
+                                    onChange={date => date && setDateSelected(date)}
+                                    dateFormat="dd/MM/yyyy"                                    
                                 />
                             </div>
                             <div className="field">
@@ -146,7 +139,7 @@ function UpdateCard({ personId }: Props) {
                                 <input
                                     type="number"
                                     required
-                                    step="0.01" min="0"
+                                    step="0.01" min="0.70" max="2.50"
                                     placeholder="Altura (m)"
                                     id="altura"
                                     value={altura}
@@ -156,8 +149,8 @@ function UpdateCard({ personId }: Props) {
                             <div className="field">
                                 <input
                                     type="number"
-                                    required
-                                    step="0.01" min="0"
+                                    required                                    
+                                    step="0.01" min="25.00" max="600.00"
                                     placeholder="Peso (kg)"
                                     id="peso"
                                     value={peso}
