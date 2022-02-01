@@ -16,7 +16,7 @@ function FormCard() {
     const [selected, setSelected] = useState('Sexo');
     const [cpf, setCPF] = useState('');
 
-    function handleCPF(cpf: React.ChangeEvent<HTMLInputElement>) {
+    function handleCPF(cpf: React.ChangeEvent<HTMLInputElement>) {       
         setCPF(cpfMask(cpf.target.value));
     }
 
@@ -87,6 +87,7 @@ function FormCard() {
                             placeholder="CPF"
                             value={cpf}
                             required
+                            minLength={14}
                             maxLength={14}
                             onChange={value => handleCPF(value)}
                             id="cpf"
@@ -116,7 +117,7 @@ function FormCard() {
                                     className='input-number'
                                     type="number"
                                     required
-                                    step="0.01" min="0"
+                                    step="0.01" min="0.70" max="2.50"
                                     placeholder="Altura (m)"
                                     id="altura"
                                 />
@@ -126,7 +127,7 @@ function FormCard() {
                                     className='input-number'
                                     type="number"
                                     required
-                                    step="0.01" min="0"
+                                    step="0.01" min="25.00" max="600.00"
                                     placeholder="Peso (kg)"
                                     id="peso"
                                 />
